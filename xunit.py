@@ -8,7 +8,8 @@
 # ◎収集したテスト結果を出力する
 # ◎WasRunで文字列をログに記録する
 # ◎失敗したテストを出力する
-# setUpのエラーをキャッチして出力する
+# ・setUpのエラーをキャッチして出力する
+# ・TestCaseクラスから TestSuite を作る
 
 
 class TestCase:
@@ -18,8 +19,7 @@ class TestCase:
     def setUp( self ):
         pass
 
-    def run( self ):
-        result = TestResult()
+    def run( self, result ):
         result.testStarted()
         self.setUp()
         
@@ -30,7 +30,6 @@ class TestCase:
             result.testFailed()
 
         self.tearDown()
-        return result
 
     def tearDown( self ):
         pass
@@ -58,11 +57,9 @@ class TestSuite:
     def add( self, test ):
         self.tests.append( test )
 
-    def run( self ):
-        result = TestResult()
+    def run( self, result ):
         for test in self.tests:
             test.run( result )
-        return result
 
 class WasRun( TestCase ):
     def setUp( self ):
@@ -109,8 +106,14 @@ class TestCaseTest( TestCase ):
         assert( "2 run, 1 failed" == result.summary() )
 
 
-print( TestCaseTest( "testTemplateMethod" ).run().summary() )
-print( TestCaseTest( "testResult" ).run().summary() )
-print( TestCaseTest( "testFailedResult" ).run().summary() )
-print( TestCaseTest( "testFailedResultFormatting" ).run().summary() )
-print( TestCaseTest( "testSuite" ).run().summary() )
+suite = TestSuite()
+
+suite.add( TestCaseTest( "testTemplateMethod" ) )
+suite.add( TestCaseTest( "testResult" ) )
+suite.add( TestCaseTest( "testFailedResult" ) )
+suite.add( TestCaseTest( "testFailedResultFormatting" ) )
+suite.add( TestCaseTest( "testSuite" ) )
+
+result = TestResult()
+suite.run( result )
+print( result.summary() )

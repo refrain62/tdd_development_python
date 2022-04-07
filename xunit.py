@@ -8,6 +8,9 @@
 # ・収集したテスト結果を出力する
 # ◎WasRunで文字列をログに記録する
 
+from pkg_resources import cleanup_resources
+
+
 class TestCase:
     def __init__( self, name ):
         self.name = name
@@ -20,10 +23,15 @@ class TestCase:
         method = getattr( self, self.name )
         method()
         self.tearDown()
+        return TestResult()
 
     def tearDown( self ):
         pass
 
+
+class TestResult:
+    def summary( self ):
+        return "1 run, 0 failed"
 
 class WasRun( TestCase ):
     def setUp( self ):

@@ -8,7 +8,11 @@
 # ・収集したテスト結果を出力する
 # ・
 
-class WasRun:
+class TestCase:
+    pass
+
+
+class WasRun( TestCase ):
     def __init__( self, name):
         self.wasRun = None
         self.name = name

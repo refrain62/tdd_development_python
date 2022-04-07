@@ -13,7 +13,7 @@ class WasRun:
         self.wasRun = None
     
     def testMethod( self ):
-        pass
+        self.wasRun = 1
 
 test = WasRun( "testMethod" )
 

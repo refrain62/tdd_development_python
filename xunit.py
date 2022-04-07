@@ -23,11 +23,9 @@ class TestCase:
 
 class WasRun( TestCase ):
     def setUp( self ):
-        self.wasRun = None
         self.log = "setUp "
     
     def testMethod( self ):
-        self.wasRun = 1
         self.log = self.log + "testMethod "
 
 

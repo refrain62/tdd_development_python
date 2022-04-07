@@ -7,9 +7,8 @@
 # ・複数のテストを走らせる
 # ◎収集したテスト結果を出力する
 # ◎WasRunで文字列をログに記録する
-# ・失敗したテストを出力する
-
-from pkg_resources import cleanup_resources
+# ◎失敗したテストを出力する
+# setUpのエラーをキャッチして出力する
 
 
 class TestCase:
@@ -20,11 +19,16 @@ class TestCase:
         pass
 
     def run( self ):
-        self.setUp()
         result = TestResult()
         result.testStarted()
-        method = getattr( self, self.name )
-        method()
+        self.setUp()
+        
+        try:
+            method = getattr( self, self.name )
+            method()
+        except:
+            result.testFailed()
+
         self.tearDown()
         return result
 

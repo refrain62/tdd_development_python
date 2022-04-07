@@ -6,7 +6,7 @@
 # ・テストメソッドが失敗したとしても tearDown を呼び出す
 # ・複数のテストを走らせる
 # ・収集したテスト結果を出力する
-# ・WasRunで文字列をログに記録する
+# ◎WasRunで文字列をログに記録する
 
 class TestCase:
     def __init__( self, name ):

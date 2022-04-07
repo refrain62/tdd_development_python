@@ -5,7 +5,7 @@
 # ◎tearDownを後で呼び出す
 # ・テストメソッドが失敗したとしても tearDown を呼び出す
 # ・複数のテストを走らせる
-# ・収集したテスト結果を出力する
+# ◎収集したテスト結果を出力する
 # ◎WasRunで文字列をログに記録する
 
 from pkg_resources import cleanup_resources
@@ -48,6 +48,9 @@ class WasRun( TestCase ):
     def testMethod( self ):
         self.log = self.log + "testMethod "
 
+    def testBrokenMethod( self ):
+        raise Exception
+
     def tearDown( self ):
         self.log = self.log + "tearDown "
 
@@ -71,4 +74,4 @@ class TestCaseTest( TestCase ):
 
 TestCaseTest("testTemplateMethod").run()
 TestCaseTest("testResult").run()
-TestCaseTest("testFailedResult").run()
+#TestCaseTest("testFailedResult").run()
